@@ -1,4 +1,4 @@
-import { useParams } from "react-router"
+import { useParams } from "react-router-dom"
 import { useApi } from "../hooks/useApi"
 import { getPokemonDetail } from "../services/pokemon"
 import { useEffect } from "react"
@@ -13,10 +13,6 @@ export function PokemonDetailScreen() {
       if (!id) return
       fetchPokemonDetail(id)
    }, [fetchPokemonDetail, id])
-
-   if (!data) {
-      return
-   }
 
    return (
       <PokemonDetailContainer data={data} isLoading={isLoading} error={error} />
