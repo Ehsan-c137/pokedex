@@ -10,7 +10,7 @@ import {
    type PokemonListItem,
    type AllPokemonsResponse,
 } from "../services/types"
-import { getAllPokemons } from "../services/pokemon"
+import { type PokemonService } from "../services/pokemon-service"
 
 export interface IContext {
    currentPage: number
@@ -92,15 +92,19 @@ const initialState: State = {
 
 interface PaginationProviderProps {
    children: ReactNode
+   pokemonService: PokemonService
 }
 
-export function PaginationProvider({ children }: PaginationProviderProps) {
+export function PaginationProvider({
+   children,
+   pokemonService,
+}: PaginationProviderProps) {
    const [state, dispatch] = useReducer(reducer, initialState)
 
    const fetchPokemons = useCallback(async () => {
       dispatch({ type: "FETCH_START" })
       try {
-         const data = await getAllPokemons({
+         const data = await pokemonService.getAll({
             limit: state.limit,
             offset: state.offset,
             search: state.search,
@@ -109,7 +113,7 @@ export function PaginationProvider({ children }: PaginationProviderProps) {
       } catch (error) {
          dispatch({ type: "FETCH_ERROR", payload: error as Error })
       }
-   }, [state.limit, state.offset, state.search])
+   }, [state.limit, state.offset, state.search, pokemonService])
 
    useEffect(() => {
       fetchPokemons()

@@ -2,6 +2,7 @@ import { PaginationProvider } from "../components/pagination-context"
 import { usePagination } from "../components/use-pagination"
 import { SearchBar } from "./search-bar"
 import { HomeContainer } from "../components/home"
+import { pokemonApi } from "../services/pokemon"
 
 function HomePokemonList() {
    const {
@@ -37,7 +38,7 @@ function HomePokemonList() {
 
 export function HomeScreen() {
    return (
-      <PaginationProvider>
+      <PaginationProvider pokemonService={pokemonApi}>
          <HomePokemonList />
       </PaginationProvider>
    )

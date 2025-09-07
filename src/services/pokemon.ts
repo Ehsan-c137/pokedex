@@ -1,5 +1,6 @@
 import { BASE_URL, fetchWrapper } from "./index"
 import { type AllPokemonsResponse, type PokemonDetailResponse } from "./types"
+import { type PokemonService } from "./pokemon-service"
 
 const POKEMON_API_URL = `${BASE_URL}/pokemon`
 
@@ -45,4 +46,9 @@ export async function getPokemonDetail(
    id: string
 ): Promise<PokemonDetailResponse> {
    return fetchWrapper<PokemonDetailResponse>(`${POKEMON_API_URL}/${id}`)
+}
+
+export const pokemonApi: PokemonService = {
+   getAll: getAllPokemons,
+   getDetail: getPokemonDetail,
 }
