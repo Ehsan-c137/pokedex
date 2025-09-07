@@ -32,7 +32,7 @@ export function PokemonCard({ name, url }: PokemonListItem) {
    return (
       <Link
          to={`/pokemon/${data.id}`}
-         className="bg-white flex flex-col items-center gap-2 p-4 rounded-lg shadow-md font-normal"
+         className="bg-white flex flex-col items-center gap-2 p-4 rounded-lg shadow-md font-normal hover:ring-3 hover:ring-gray-300 h-[196px] transition duration-300 ease-in-out"
       >
          <img
             className="w-24 h-24"
