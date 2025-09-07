@@ -1,8 +1,9 @@
 import { type PokemonDetailResponse } from "../services/types"
 import { Divider } from "./divider"
+import { PokemonDetailSkeleton } from "./pokemon-detail-skeleton"
 
 interface IProps {
-   data: PokemonDetailResponse
+   data: PokemonDetailResponse | null
    isLoading: boolean
    error: Error | null
 }
@@ -12,15 +13,13 @@ export function PokemonDetailContainer({ data, isLoading, error }: IProps) {
       return <div className="w-full text-center">{error.message}</div>
    }
 
-   if (isLoading) {
-      return <div>Loading...</div>
+   if (isLoading || !data) {
+      return <PokemonDetailSkeleton />
    }
 
    const abilities = data.abilities
       .filter((ability) => !ability.is_hidden)
       .map((ability) => ability.ability.name)
-
-   console.log(data.sprites)
 
    return (
       <div className="w-full h-full flex justify-center items-center">
